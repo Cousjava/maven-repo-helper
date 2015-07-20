@@ -18,8 +18,7 @@ package org.debian.maven.repo;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,6 +32,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.debian.maven.repo.POMInfo.DependencyType;
+import org.debian.maven.util.Readers;
 
 /**
  * Reads relevant information from the POM.
@@ -50,11 +50,11 @@ public class POMReader {
 
     protected final XMLInputFactory factory = XMLInputFactory.newInstance();
 
-    public POMInfo readPom(File originalPom) throws XMLStreamException, FileNotFoundException {
+    public POMInfo readPom(File originalPom) throws XMLStreamException, IOException {
         if (!originalPom.exists()) {
             System.err.println("Cannot find pom file " + originalPom.getAbsolutePath());
         }
-        return readPom(new FileReader(originalPom));
+        return readPom(Readers.read(originalPom));
     }
 
     public POMInfo readPom(Reader originalPom) throws XMLStreamException {

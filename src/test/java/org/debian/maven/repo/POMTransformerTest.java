@@ -327,4 +327,13 @@ public class POMTransformerTest {
         
         assertTrue("Guice is missing from the dependencies", guiceFound);
     }
+
+    @Test
+    public void testTransformPomWithByteOrderMark() throws Exception {
+        File pom = tmpDir.usePom("shiro-1.2.4.pom");
+        instance.getRulesFiles().addDefaultRules();
+        instance.transformPom(pom, tmpDir.updatedPom(), true, true, false, false, null, null);
+
+        assertTrue("The transformation failed", tmpDir.updatedPom().exists());
+    }
 }

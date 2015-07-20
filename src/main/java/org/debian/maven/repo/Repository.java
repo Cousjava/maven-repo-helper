@@ -18,7 +18,6 @@ package org.debian.maven.repo;
 
 import java.io.File;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -33,9 +32,8 @@ import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.xml.stream.XMLStreamException;
-
 import org.debian.maven.repo.POMInfo.DependencyType;
+import org.debian.maven.util.Readers;
 
 import static org.debian.maven.repo.DependencyRuleSet.*;
 
@@ -82,13 +80,13 @@ public class Repository {
             InputStream superPomSource = getClass().getResourceAsStream("/org/apache/maven/project/pom-4.0.0.xml");
             // The maven2 jars may not always be present in the classpath
             if (superPomSource != null) {
-                superPom = pomReader.readPom(new InputStreamReader(superPomSource));
+                superPom = pomReader.readPom(Readers.read(superPomSource));
                 superPom.getThisPom().setGroupId("__super__");
                 superPom.getThisPom().setArtifactId("__pom__");
                 superPom.getThisPom().setType("pom");
                 superPom.getThisPom().setSuperPom(true);
             }
-        } catch (XMLStreamException e) {
+        } catch (Exception e) {
             log.log(Level.SEVERE, "Unable to load the Maven super pom", e);
         }
     }

@@ -19,8 +19,6 @@ package org.debian.maven.repo;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -35,6 +33,7 @@ import javax.xml.stream.XMLStreamWriter;
 
 import org.debian.maven.cliargs.ArgumentsMap;
 import org.debian.maven.repo.POMInfo.DependencyType;
+import org.debian.maven.util.Readers;
 import org.debian.maven.util.Strings;
 import org.debian.maven.util.XMLWriterWrapper;
 
@@ -167,7 +166,7 @@ public class POMTransformer extends POMReader {
         });
     }
 
-    public void keepPomVersion(File pomFile) throws XMLStreamException, FileNotFoundException {
+    public void keepPomVersion(File pomFile) throws XMLStreamException, IOException {
         Dependency pom = readPom(pomFile).getThisPom();
         depRules.get(RULES).add(new DependencyRule(pom.getGroupId() + " " + pom.getArtifactId() + " " + pom.getType() + " " + pom.getVersion()));
     }
@@ -278,7 +277,7 @@ public class POMTransformer extends POMReader {
             Dependency parentDependency = null;
             String element = null;
             boolean afterText = false;
-            XMLStreamReader parser = factory.createXMLStreamReader(new BufferedReader(new FileReader(originalPom)));
+            XMLStreamReader parser = factory.createXMLStreamReader(new BufferedReader(Readers.read(originalPom)));
             out = new BufferedWriter(new FileWriter(targetPom));
             XMLStreamWriter writer = outFactory.createXMLStreamWriter(out);
             XMLWriterWrapper writerWrapper = new XMLWriterWrapper(writer);
