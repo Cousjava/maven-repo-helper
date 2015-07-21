@@ -32,6 +32,10 @@ public class Readers {
     /**
      * Detects a BOM in the specified input stream and returns a Reader
      * using the charset detected, or ISO-8859-1 otherwise.
+     * ISO-8859-1 is used by default because it won't break on invalid
+     * byte sequences unlike UTF-8. This may corrupt some non functionnal
+     * texts of the poms, but it guarantees the build will never break
+     * on corrupted characters.
      */
     public static Reader read(InputStream in) throws IOException {
         BOMInputStream bis = new BOMInputStream(in, false, UTF_8, UTF_16BE, UTF_16LE, UTF_32BE, UTF_32LE);

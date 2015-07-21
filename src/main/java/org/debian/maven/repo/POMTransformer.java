@@ -19,8 +19,9 @@ package org.debian.maven.repo;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.*;
 import java.util.logging.Level;
@@ -278,7 +279,7 @@ public class POMTransformer extends POMReader {
             String element = null;
             boolean afterText = false;
             XMLStreamReader parser = factory.createXMLStreamReader(new BufferedReader(Readers.read(originalPom)));
-            out = new BufferedWriter(new FileWriter(targetPom));
+            out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(targetPom), "UTF-8"));
             XMLStreamWriter writer = outFactory.createXMLStreamWriter(out);
             XMLWriterWrapper writerWrapper = new XMLWriterWrapper(writer);
 
