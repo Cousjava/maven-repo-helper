@@ -17,7 +17,6 @@
 package org.debian.maven.repo;
 
 import org.debian.maven.TemporaryPomFolder;
-import org.debian.maven.repo.POMReader.TreePath;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -375,34 +374,6 @@ public class POMReaderTest {
         assertEquals("groupId", "biz.aQute", info.getThisPom().getGroupId());
         assertEquals("artifactId", "bndlib", info.getThisPom().getArtifactId());
         assertEquals("version", "1.43.0", info.getThisPom().getVersion());
-    }
-
-    @Test
-    public void testTreePathMatches() {
-        TreePath<String> path = new TreePath<String>();
-        path.add("a");
-        path.add("b");
-        path.add("c");
-        path.add("d");
-
-        assertTrue(path.matches("a/b/c/d"));
-        assertTrue(path.matches("b/c/d"));
-        assertTrue(path.matches("c/d"));
-        assertTrue(path.matches("d"));
-
-        assertTrue(path.matches("*/b/c/d"));
-        assertTrue(path.matches("a/*/c/d"));
-        assertTrue(path.matches("a/b/*/d"));
-        assertTrue(path.matches("a/b/c/*"));
-
-        assertTrue(path.matches("/*/b/c/d"));
-        assertTrue(path.matches("/a/*/c/d"));
-        assertTrue(path.matches("/a/b/*/d"));
-        assertTrue(path.matches("/a/b/c/*"));
-
-        assertFalse(path.matches("/b/c/d"));
-        assertFalse(path.matches("/c/d"));
-        assertFalse(path.matches("/d"));
     }
 
     /**
