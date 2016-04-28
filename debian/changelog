@@ -1,6 +1,7 @@
 maven-repo-helper (1.8.13) UNRELEASED; urgency=medium
 
   * Standards-Version updated to 3.9.8 (no changes)
+  * Use secure Vcs-* URLs
 
  -- Emmanuel Bourg <ebourg@apache.org>  Thu, 28 Apr 2016 16:31:57 +0200
 
