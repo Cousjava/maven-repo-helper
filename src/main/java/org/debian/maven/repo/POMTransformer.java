@@ -723,7 +723,7 @@ public class POMTransformer extends POMReader {
             System.out.println("    Optional, defaults to debian/$package");
             System.out.println("");
             System.out.println("Description:");
-            System.out.println("  Reads the file debian/$package.poms and tranform each POM file");
+            System.out.println("  Reads the file debian/$package.poms and transforms each POM file");
             System.out.println("  listed in the .poms file into a POM file using the Debian versions");
             System.out.println("  of the libraries.");
             return;

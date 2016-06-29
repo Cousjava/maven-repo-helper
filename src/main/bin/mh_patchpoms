@@ -21,7 +21,7 @@ set -e
 syntax()
 {
    echo -e "Usage: mh_patchpoms [option]..."
-   echo -e "Reads the file debian/\$package.poms and tranform each POM file"
+   echo -e "Reads the file debian/\$package.poms and transforms each POM file"
    echo -e "listed in the .poms file into a POM file using the Debian versions"
    echo -e "of the libraries. Also keeps a backup of each POM file which can"
    echo -e "be restored with mh_unpatchpoms"
