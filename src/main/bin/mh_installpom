@@ -73,6 +73,8 @@ syntax()
    echo -e "\t--keep-elements=<elem1,elem2>: keep the elements listed here"
    echo -e "\t  even if they are normally removed by the clean operation."
    echo -e "\t  Such elements are build,reports,reporting,prerequisites,profiles."
+   echo -e "\t--relocate=<groupId>:<artifactId>:<version>: relocate the specified"
+   echo -e "\t  artifact toward the one being installed."
    echo -e "\t-m<repo root>--maven-repo=<repo root>: location of the Maven repository,"
    echo -e "\t  used to force the versions of the Maven plugins used in the current"
    echo -e "\t  POM file with the versions found in the repository"
@@ -85,7 +87,7 @@ syntax()
 }
 
 # The following elements are options which just need to be ignored: artifact java-lib usj-name usj-version no-usj-versionless dest-jar classifier
-ARGS="p package o no-parent k keep-pom-version e set-version r rules u published-rules i ignore-rules c clean-ignore-rules s no-rules no-publish-used-rule v verbose n no-act m maven-repo h has-package-version keep-elements artifact java-lib usj-name usj-version no-usj-versionless dest-jar ignore-pom classifier" parseargs "$@"
+ARGS="p package o no-parent k keep-pom-version e set-version r rules u published-rules i ignore-rules c clean-ignore-rules s no-rules no-publish-used-rule v verbose n no-act m maven-repo h has-package-version keep-elements artifact java-lib usj-name usj-version no-usj-versionless dest-jar ignore-pom classifier relocate" parseargs "$@"
 
 if [ "$ARGC" -lt "1" ]; then
    syntax
@@ -109,6 +111,7 @@ POM="${ARGV[0]}"
 IGNORE_POM=$(getarg ignore-pom)
 HAS_PACKAGE_VERSION=$(getarg h has-package-version)
 KEEP_ELEMENTS=$(getarg keep-elements)
+RELOCATE=$(getarg relocate)
 
 if [ -z "$PUBLISHED_RULES" ]; then
     if [ -f debian/maven.publishedRules ]; then
@@ -169,4 +172,40 @@ if [[ "${version}" != "${debianVersion}" ]]; then
     fi
 
     install -m 644 -D debian/.mh/${artifactId}-${debianVersion}.pom debian/${PACKAGE}/usr/share/maven-repo/${groupPath}/${artifactId}/${debianVersion}/${artifactId}-${debianVersion}.pom
+fi
+
+if [[ ! -z "$RELOCATE" ]]; then
+    relocatedGAV=(${RELOCATE//:/ })
+
+    relocatedGroupId=${relocatedGAV[0]}
+    relocatedArtifactId=${relocatedGAV[1]}
+    relocatedVersion=${relocatedGAV[2]}
+    if [[ -z "${relocatedVersion}" ]]; then
+        relocatedVersion=debian
+    fi
+
+    relocatedGroupPath=$(echo $relocatedGroupId | tr . / )
+
+    relocatedPomPath=debian/${PACKAGE}/usr/share/maven-repo/${relocatedGroupPath}/${relocatedArtifactId}/${relocatedVersion}
+    relocatedPom=${relocatedPomPath}/${relocatedArtifactId}-${relocatedVersion}.pom
+
+    mkdir -p ${relocatedPomPath}
+
+    cat >> ${relocatedPom} << EOF
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>${relocatedGroupId}</groupId>
+  <artifactId>${relocatedArtifactId}</artifactId>
+  <version>${relocatedVersion}</version>
+  <distributionManagement>
+    <relocation>
+      <groupId>${groupId}</groupId>
+      <artifactId>${artifactId}</artifactId>
+      <version>${debianVersion}</version>
+    </relocation>
+  </distributionManagement>
+</project>
+EOF
+
+    chmod 644 ${relocatedPom}
 fi

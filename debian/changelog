@@ -1,5 +1,6 @@
 maven-repo-helper (1.8.13) UNRELEASED; urgency=medium
 
+  * Added the --relocate option to mh_installpom
   * Reduced the size of the poms installed in /usr/share/maven-repo by removing
     the non-functional elements (licenses, scm, developers, contributors,
     issueManagement, mailingLists, inceptionYear, url, organization).

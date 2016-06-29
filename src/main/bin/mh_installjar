@@ -80,7 +80,7 @@ syntax()
 }
 
 # The following elements are options which just need to be ignored: no-parent has-package-version keep-elements ignore-pom
-ARGS="p package e set-version r rules l java-lib n usj-name i j usj-version s no-usj-versionless d dest-jar c classifier v verbose n no-act skip-clean-pom no-parent has-package-version keep-elements ignore-pom" parseargs "$@"
+ARGS="p package e set-version r rules l java-lib n usj-name i j usj-version s no-usj-versionless d dest-jar c classifier v verbose n no-act skip-clean-pom no-parent has-package-version keep-elements ignore-pom relocate" parseargs "$@"
 
 if [ "$ARGC" -lt "2" ]; then
    syntax

@@ -34,6 +34,7 @@ Options:
     -s --no-rules: don't apply any rules for converting versions, do not even convert versions to the default 'debian' version
     --no-publish-used-rule: don't publish the rule used to transform a POM's own attributes in debian.mavenRules
     --keep-elements=<elem1,elem2>: keep the elements listed here even if they are normally removed by the clean operation. Such elements are build,reports,reporting,prerequisites,profiles.
+    --relocate=<groupId>:<artifactId>:<version>: relocate the specified artifact toward the one being installed.
     -m<repo root>--maven-repo=<repo root>: location of the Maven repository, used to force the versions of the Maven plugins used in the current POM file with the versions found in the repository
     -v --verbose: show more information while running
     -n --no-act: don't actually do anything, just print the results
