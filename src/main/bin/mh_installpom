@@ -175,23 +175,27 @@ if [[ "${version}" != "${debianVersion}" ]]; then
 fi
 
 if [[ ! -z "$RELOCATE" ]]; then
-    relocatedGAV=(${RELOCATE//:/ })
+    relocations=(${RELOCATE//,/ })
 
-    relocatedGroupId=${relocatedGAV[0]}
-    relocatedArtifactId=${relocatedGAV[1]}
-    relocatedVersion=${relocatedGAV[2]}
-    if [[ -z "${relocatedVersion}" ]]; then
-        relocatedVersion=debian
-    fi
+    for relocation in "${relocations[@]}"
+    do
+        relocatedGAV=(${relocation//:/ })
 
-    relocatedGroupPath=$(echo $relocatedGroupId | tr . / )
+        relocatedGroupId=${relocatedGAV[0]}
+        relocatedArtifactId=${relocatedGAV[1]}
+        relocatedVersion=${relocatedGAV[2]}
+        if [[ -z "${relocatedVersion}" ]]; then
+            relocatedVersion=debian
+        fi
 
-    relocatedPomPath=debian/${PACKAGE}/usr/share/maven-repo/${relocatedGroupPath}/${relocatedArtifactId}/${relocatedVersion}
-    relocatedPom=${relocatedPomPath}/${relocatedArtifactId}-${relocatedVersion}.pom
+        relocatedGroupPath=$(echo $relocatedGroupId | tr . / )
 
-    mkdir -p ${relocatedPomPath}
+        relocatedPomPath=debian/${PACKAGE}/usr/share/maven-repo/${relocatedGroupPath}/${relocatedArtifactId}/${relocatedVersion}
+        relocatedPom=${relocatedPomPath}/${relocatedArtifactId}-${relocatedVersion}.pom
 
-    cat >> ${relocatedPom} << EOF
+        mkdir -p ${relocatedPomPath}
+
+        cat >> ${relocatedPom} << EOF
 <project>
   <modelVersion>4.0.0</modelVersion>
   <groupId>${relocatedGroupId}</groupId>
@@ -207,5 +211,6 @@ if [[ ! -z "$RELOCATE" ]]; then
 </project>
 EOF
 
-    chmod 644 ${relocatedPom}
+        chmod 644 ${relocatedPom}
+    done
 fi
