@@ -13,14 +13,6 @@
 	</properties>
 	
 	<name>Plexus Archiver Component</name>
-	<contributors>
-		<contributor>
-			<name>Dan Tran</name>
-		</contributor>
-		<contributor>
-			<name>Richard van der Hoff</name>
-		</contributor>
-	</contributors>
 	<dependencies>
 		<dependency>
 			<groupId>org.codehaus.plexus</groupId>
@@ -38,9 +30,4 @@
 			<version>debian</version>
 		</dependency>
 	</dependencies>
-	<scm>
-		<connection>scm:svn:http://svn.codehaus.org/plexus/plexus-components/tags/plexus-archiver-1.0-alpha-12</connection>
-		<developerConnection>scm:svn:https://svn.codehaus.org/plexus/plexus-components/tags/plexus-archiver-1.0-alpha-12</developerConnection>
-		<url>http://fisheye.codehaus.org/browse/plexus/plexus-components/tags/plexus-archiver-1.0-alpha-12</url>
-	</scm>
 </project>

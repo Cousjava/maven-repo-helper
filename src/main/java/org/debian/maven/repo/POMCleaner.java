@@ -40,7 +40,8 @@ public class POMCleaner extends POMTransformer {
     private static final List<String> WRITE_IGNORED_ELEMENTS = Arrays.asList("build",
                 "distributionManagement", "profiles", "ciManagement", "prerequisites",
                 "repositories", "pluginRepositories", "reports", "reporting", "modelVersion",
-                "parent");
+                "parent", "licenses", "scm", "developers", "contributors", "issueManagement",
+                "mailingLists", "inceptionYear", "url", "organization");
     private boolean keepAllElements = false;
     private Collection<String> keepElements = new ArrayList<String>();
 

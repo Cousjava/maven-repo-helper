@@ -35,27 +35,6 @@ under the License.
 	<description>The Apache Software Foundation provides support for the Apache community of open-source software projects.
     The Apache projects are characterized by a collaborative, consensus based development process, an open andpragmatic software license, and a desire to create high quality software that leads the way in its field.
     We consider ourselves not simply a group of projects sharing a server, but rather a community of developersand users.</description>
-	<licenses>
-		<license>
-			<name>The Apache Software License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
-	<organization>
-		<name>The Apache Software Foundation</name>
-		<url>http://www.apache.org/</url>
-	</organization>
-	<url>http://www.apache.org/</url>
-	<mailingLists>
-		<mailingList>
-			<name>Apache Announce List</name>
-			<subscribe>announce-subscribe@apache.org</subscribe>
-			<unsubscribe>announce-unsubscribe@apache.org</unsubscribe>
-			<post>announce@apache.org</post>
-			<archive>http://mail-archives.apache.org/mod_mbox/www-announce/</archive>
-		</mailingList>
-	</mailingLists>
 	<properties>
 		<distMgmtSnapshotsName>Apache Development Snapshot Repository</distMgmtSnapshotsName>
 		<distMgmtSnapshotsUrl>https://repository.apache.org/content/repositories/snapshots</distMgmtSnapshotsUrl>
@@ -65,11 +44,6 @@ under the License.
 		<debian.originalVersion>7</debian.originalVersion>
 		<debian.package>libmaven-parent-poms</debian.package>
 	</properties>
-	<scm>
-		<connection>scm:svn:http://svn.apache.org/repos/asf/maven/pom/tags/apache-7</connection>
-		<developerConnection>scm:svn:https://svn.apache.org/repos/asf/maven/pom/tags/apache-7</developerConnection>
-		<url>http://svn.apache.org/viewvc/maven/pom/tags/apache-7</url>
-	</scm>
 	<build>
 		<pluginManagement>
 			<plugins>

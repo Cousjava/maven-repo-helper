@@ -13,12 +13,6 @@
 	</properties>
 	
 	<name>SLF4J</name>
-	<url>http://www.slf4j.org</url>
-	<organization>
-		<name>QOS.ch</name>
-		<url>http://www.qos.ch</url>
-	</organization>
-	<inceptionYear>2005</inceptionYear>
 	<modules>
 		<module>slf4j-api</module>
 		<module>slf4j-simple</module>
@@ -57,9 +51,4 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	<scm>
-		<connection>scm:svn:http://svn.slf4j.org/repos/slf4j/trunk</connection>
-		<developerConnection>scm:svn:https://svn.slf4j.org/repos/slf4j/trunk</developerConnection>
-		<url>http://svn.slf4j.org/viewvc/slf4j/trunk/</url>
-	</scm>
 </project>
