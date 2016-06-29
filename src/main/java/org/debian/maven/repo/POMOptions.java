@@ -16,6 +16,8 @@
 
 package org.debian.maven.repo;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 /**
@@ -37,6 +39,12 @@ public class POMOptions {
     private boolean noUsjVersionless;
     private String classifier;
     private String siteXml;
+
+    /**
+     * Comma separated list of Maven coordinates relocated to this artifact.
+     * Example: foo:bar:1.x,org.foo:bar-core:debian
+     */
+    private String relocate;
 
     public boolean isIgnore() {
         return ignore;
@@ -150,6 +158,32 @@ public class POMOptions {
         this.siteXml = siteXml;
     }
 
+    public String getRelocate() {
+        return relocate;
+    }
+
+    public void setRelocate(String relocate) {
+        this.relocate = relocate;
+    }
+
+    public List<Dependency> getRelocatedArtifacts() {
+        List<Dependency> artifacts = new ArrayList<Dependency>();
+        if (relocate != null) {
+            for (String element : relocate.split(",")) {
+                String[] coordinates = element.split(":");
+                if (coordinates.length < 2) {
+                    throw new IllegalArgumentException("Malformed relocated artifact: " + element);
+                }
+                String groupId = coordinates[0];
+                String artifactId = coordinates[1];
+                String version = coordinates.length >= 3 ? coordinates[2] : "debian";
+                artifacts.add(new Dependency(groupId, artifactId, null, version));
+            }
+        }
+        
+        return artifacts;
+    }
+
     public static POMOptions parse(String line) {
         StringTokenizer st = new StringTokenizer(line, " \t");
         
@@ -185,6 +219,8 @@ public class POMOptions {
                 options.setClassifier(option.substring("--classifier=".length()));
             } else if (option.startsWith("--site-xml=")) {
                 options.setSiteXml(option.substring("--site-xml=".length()));
+            } else if (option.startsWith("--relocate=")) {
+                options.setRelocate(option.substring("--relocate=".length()));
             } else if ("--ignore-pom".equals(option)) {
                 options.setIgnorePOM(true);
             }
@@ -233,6 +269,9 @@ public class POMOptions {
         }
         if (siteXml != null) {
             options += " --site-xml=" + siteXml;
+        }
+        if (relocate != null) {
+            options += " --relocate=" + relocate;
         }
         if (ignorePOM) {
             options += " --ignore-pom";

@@ -16,6 +16,8 @@
 
 package org.debian.maven.repo;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -34,6 +36,26 @@ public class POMOptionsTest {
         assertTrue(options.isNoParent());
         assertFalse(options.isIgnorePOM());
         assertFalse(options.isNoUsjVersionless());
+    }
+
+    @Test
+    public void testParseRelocate() {
+        POMOptions options = POMOptions.parse("--relocate=foo:bar:1.x,org.foo:bar-core");
+        assertNotNull("relocate is null", options.getRelocate());
+
+        List<Dependency> relocatedArtifacts = options.getRelocatedArtifacts();
+        assertNotNull("relocated artifacts is null", relocatedArtifacts);
+        assertEquals("number of artifacts", 2, relocatedArtifacts.size());
+        
+        Dependency dependency = relocatedArtifacts.get(0);
+        assertEquals("relocated artifact 1 groupId", "foo", dependency.getGroupId());
+        assertEquals("relocated artifact 1 artifactId", "bar", dependency.getArtifactId());
+        assertEquals("relocated artifact 1 version", "1.x", dependency.getVersion());
+        
+        dependency = relocatedArtifacts.get(1);
+        assertEquals("relocated artifact 2 groupId", "org.foo", dependency.getGroupId());
+        assertEquals("relocated artifact 2 artifactId", "bar-core", dependency.getArtifactId());
+        assertEquals("relocated artifact 2 version", "debian", dependency.getVersion());
     }
 
     @Test
