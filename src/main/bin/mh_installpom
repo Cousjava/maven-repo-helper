@@ -201,6 +201,9 @@ if [[ ! -z "$RELOCATE" ]]; then
   <groupId>${relocatedGroupId}</groupId>
   <artifactId>${relocatedArtifactId}</artifactId>
   <version>${relocatedVersion}</version>
+  <properties>
+    <debian.package>${PACKAGE}</debian.package>
+  </properties>
   <distributionManagement>
     <relocation>
       <groupId>${groupId}</groupId>

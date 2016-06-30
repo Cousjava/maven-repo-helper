@@ -1,3 +1,9 @@
+maven-repo-helper (1.9.1) unstable; urgency=medium
+
+  * Added the debian.package property in the relocated poms
+
+ -- Emmanuel Bourg <ebourg@apache.org>  Thu, 30 Jun 2016 15:56:50 +0200
+
 maven-repo-helper (1.9) unstable; urgency=medium
 
   * Added the --relocate option to mh_installpom
