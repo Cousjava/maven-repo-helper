@@ -21,6 +21,8 @@ parseargs()
          exit 0
       elif [ "-h" = "$1" ] || [ "--help" = "$1" ]; then
          syntax
+      elif [ "-i" = "$1" ]; then
+         : # skip -i options passed by dh when 'dpkg-buildpackage -A' is called
       elif [ "-" = "${1:1:1}" ]; then
       # long opt
          optn=$(echo "$1" | sed -n 's/^--\([^=]*\)\(=.*\)*$/\1/p' | sed 's/-/_/g')

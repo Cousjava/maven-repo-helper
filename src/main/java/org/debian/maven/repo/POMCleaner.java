@@ -316,12 +316,10 @@ public class POMCleaner extends POMTransformer {
                 publishedRulesExtra.add(arg.substring(2));
             } else if (arg.startsWith("--extra-published-rule=")) {
                 publishedRulesExtra.add(arg.substring("--extra-published-rule=".length()));
-            } else if (arg.startsWith("-i") || arg.startsWith("--ignore-rules=")) {
-                if (arg.startsWith("-i")) {
-                    ignoreRulesFiles.add(new File(arg.substring(2)));
-                } else {
-                    ignoreRulesFiles.add(new File(arg.substring("--ignore-rules=".length())));
-                }
+            } else if (arg.startsWith("-i") && arg.length() > 2) {
+                ignoreRulesFiles.add(new File(arg.substring(2)));
+            } else if (arg.startsWith("--ignore-rules=")) {
+                ignoreRulesFiles.add(new File(arg.substring("--ignore-rules=".length())));
             } else if (arg.startsWith("-I")) {
                 ignoreRulesExtra.add(arg.substring(2));
             } else if (arg.startsWith("--extra-ignore-rule=")) {
