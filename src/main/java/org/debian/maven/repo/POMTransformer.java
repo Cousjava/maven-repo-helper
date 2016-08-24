@@ -732,7 +732,7 @@ public class POMTransformer extends POMReader {
 
         ArgumentsMap argsMap = ArgumentsMap.fromArgs(args);
 
-        boolean verbose = argsMap.getBooleanLong("verbose");
+        boolean verbose = argsMap.getBoolean("verbose","v");
         boolean singlePom = argsMap.getBooleanLong("single");
         boolean noParent = argsMap.getBooleanLong("no-parent");
         boolean noRules = argsMap.getBooleanLong("no-rules");
