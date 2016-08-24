@@ -1,3 +1,11 @@
+maven-repo-helper (1.9.3) UNRELEASED; urgency=medium
+
+  * Team upload.
+  * Apply patch for mh_patchpoms to honor the --verbose option.
+    Thank you to Christopher Hoskin for the patch. (Closes: #835042)
+
+ -- tony mancill <tmancill@debian.org>  Tue, 23 Aug 2016 22:26:59 -0700
+
 maven-repo-helper (1.9.2) unstable; urgency=medium
 
   * Team upload.
